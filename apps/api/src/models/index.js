@@ -181,6 +181,8 @@ TicketComment.belongsTo(Ticket, { foreignKey: "ticket_id", onDelete: "CASCADE" }
 Ticket.hasMany(TicketComment, { foreignKey: "ticket_id" });
 TicketComment.belongsTo(User, { foreignKey: "author_user_id" });
 ProviderConfig.belongsTo(User, { as: "createdBy", foreignKey: "created_by" });
+ProviderConfig.hasMany(Package, { foreignKey: "provider_id", as: "packages"});
+Package.belongsTo(ProviderConfig, { foreignKey: "provider_id", as: "provider"});
 RecurringTopup.belongsTo(User, { foreignKey: "user_id" });
 RecurringTopup.belongsTo(ProductVariant, { foreignKey: "product_variant_id" });
 RecurringTopup.belongsTo(Operator, { foreignKey: "operator_id" });

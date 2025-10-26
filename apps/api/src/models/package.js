@@ -24,6 +24,18 @@ export default (sequelize) => sequelize.define("Package", {
     },
     base_cost: { 
         type: DataTypes.DECIMAL(10, 2) 
+    },
+    provider_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+            model: 'provider_configs',
+            key: 'id'
+        }
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 }, { 
     tableName: "packages", 

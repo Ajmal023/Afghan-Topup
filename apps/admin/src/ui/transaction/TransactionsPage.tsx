@@ -339,6 +339,8 @@ export default function TransactionsPage() {
             <Card>
                 <CardContent className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="flex flex-col">
+                             <label className="text-sm font-medium text-muted-foreground">Search</label>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
@@ -348,7 +350,9 @@ export default function TransactionsPage() {
                                 className="pl-10"
                             />
                         </div>
-                        
+</div>
+                         <div className=" flex flex-col">
+                             <label className="text-sm font-medium text-muted-foreground">Status</label>
                         <select
                             value={selectedStatus}
                             onChange={(e) => setSelectedStatus(e.target.value)}
@@ -361,7 +365,7 @@ export default function TransactionsPage() {
                             <option value="Failed">Failed</option>
                             <option value="Rejected">Rejected</option>
                         </select>
-
+</div>
                         <div className="space-y-1">
                             <label className="text-sm font-medium text-muted-foreground">Start Date</label>
                             <Input
@@ -446,7 +450,7 @@ export default function TransactionsPage() {
                                     <TableHead>Status</TableHead>
                                     <TableHead>Stripe Status</TableHead>
                                     <TableHead>Output</TableHead>
-                                    <TableHead>Network</TableHead>
+                                    {/* <TableHead>Network</TableHead> */}
                                     <TableHead>Payment ID</TableHead>
                                     <TableHead>Created</TableHead>
                                     <TableHead className="text-right">Actions</TableHead>
@@ -625,12 +629,12 @@ function TransactionTableRow({
             <TableCell>{getStatusBadge(transaction.status)}</TableCell>
             <TableCell>{getStripeStatusBadge(transaction.stripe_status)}</TableCell>
             <TableCell>{getOutputBadge(transaction.output)}</TableCell>
-            <TableCell>
+            {/* <TableCell>
                 <div className="flex items-center gap-2">
                     <Network className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm">{transaction.network}</span>
                 </div>
-            </TableCell>
+            </TableCell> */}
             <TableCell className="font-mono text-xs">
                 {transaction.payment_id ? transaction.payment_id.slice(-8) : 'N/A'}
             </TableCell>
@@ -728,8 +732,8 @@ function TransactionDetailsDialog({ transaction }: { transaction: Transaction })
                     </div>
                 ) : (
                     <div className="space-y-6">
-                        {/* Transaction Summary */}
-                        <Card>
+                 
+                   
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <CreditCard className="h-5 w-5" />
@@ -743,8 +747,8 @@ function TransactionDetailsDialog({ transaction }: { transaction: Transaction })
                                             <DollarSign className="h-4 w-4" />
                                             Amount
                                         </label>
-                                        <p className="text-lg font-bold">${transaction.amount}</p>
-                                    </div>
+                                        <p className="text-lg font-bold">{transaction.amount}</p>
+                                    </div>s
                                     <div className="space-y-1">
                                         <label className="text-sm font-medium text-muted-foreground flex items-center gap-1">
                                             <CheckCircle className="h-4 w-4" />
@@ -889,10 +893,10 @@ function TransactionDetailsDialog({ transaction }: { transaction: Transaction })
                                     </div>
                                 </div>
                             </CardContent>
-                        </Card>
+                   
 
-                        {/* Timeline */}
-                        <Card>
+                
+                 
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <Clock className="h-5 w-5" />
@@ -931,9 +935,8 @@ function TransactionDetailsDialog({ transaction }: { transaction: Transaction })
                                     )}
                                 </div>
                             </CardContent>
-                        </Card>
+                  
 
-                        {/* Sataragan Details */}
                         {transaction.ApiSataragans && transaction.ApiSataragans.length > 0 && (
                             <Card>
                                 <CardHeader>

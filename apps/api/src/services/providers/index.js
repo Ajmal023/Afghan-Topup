@@ -1,12 +1,15 @@
 import { stripeProvider } from "./payments/stripe.js";
 import { awccTopupProvider } from "./topups/awcc.js";
+import { hesabPayTopupProvider } from "./topups/hesabPay.js";
+import { setaraganTopupProvider } from "./topups/setaragan.js";
+
 
 export const Payments = {
     stripe: stripeProvider,
-    // paypal: paypalProvider, etc
 };
 
 export const Topups = {
     awcc: awccTopupProvider,
-    // etisalat: etisalatProvider, etc
+    hesabpay: hesabPayTopupProvider, 
+    setaragan: setaraganTopupProvider,
 };

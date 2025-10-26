@@ -16,9 +16,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* ──────────────────────────────────────────────────────────────
-   NAV MODEL
-   ────────────────────────────────────────────────────────────── */
 type NavItem = { label: string; to: string };
 type NavGroup =
     | { type: "link"; label: string; icon: any; to: string; exact?: boolean }
@@ -27,6 +24,30 @@ type NavGroup =
 const NAV: NavGroup[] = [
     { type: "link", label: "Dashboard", icon: LayoutDashboard, to: "/", exact: true },
 
+    // {
+    //     type: "group",
+    //     label: "Catalog",
+    //     icon: Boxes,
+    //     children: [
+    //         { label: "Products", to: "/products" },
+    //         { label: "Product Types", to: "/types" },
+    //         { label: "Categories", to: "/categories" },
+    //     ],
+    // },
+
+    // {
+    //     type: "group",
+    //     label: "Orders",
+    //     icon: ShoppingCart,
+    //     children: [
+    //         { label: "Orders", to: "/orders" },
+    //         { label: "Payment Intents", to: "/orders/payment-intents" },
+    //         { label: "Topup Logs", to: "/orders/topup-logs" },
+    //         { label: "Pending Topups", to: "/orders/pending-topup" },
+    //         { label: "Recurring Topups", to: "/orders/recurring-topup" },
+
+    //     ],
+    // },
 
     {
         type: "link",
@@ -34,12 +55,30 @@ const NAV: NavGroup[] = [
         icon: UsersIcon,
         to: "/users",
     },
+      {
+        type: "link",
+        label: "Provider",
+        icon: UsersIcon,
+        to: "/provider",
+    },
     {
         type: "link",
         label: "Customers",
         icon: UsersIcon,
         to: "/customers",
     },
+    // {
+    //         type: "group",
+    //     label: "Promotions",
+    //     icon: PercentSquare,
+    //     children: [
+    //         { label: "Promo Codes", to: "/promos" },
+    //         { label: "Promo Uses", to: "/promos/uses" },
+    //         { label: "Referrals", to: "/referrals" },
+    //         { label: "Referral Uses", to: "/referrals/uses" },
+    //     ],
+    // },
+
         {
         type: "link",
         label: "Packages",
@@ -85,17 +124,17 @@ const NAV: NavGroup[] = [
         to: "/promo-uses",
     },
    
-    // {
-    //     type: "group",
-    //     label: "Promotions",
-    //     icon: PercentSquare,
-    //     children: [
-    //         { label: "Promo Codes", to: "/promos" },
-    //         { label: "Promo Uses", to: "/promos/uses" },
-    //         { label: "Referrals", to: "/referrals" },
-    //         { label: "Referral Uses", to: "/referrals/uses" },
-    //     ],
-    // },
+    {
+        type: "group",
+        label: "Promotions",
+        icon: PercentSquare,
+        children: [
+            { label: "Promo Codes", to: "/promos" },
+            { label: "Promo Uses", to: "/promos/uses" },
+            { label: "Referrals", to: "/referrals" },
+            { label: "Referral Uses", to: "/referrals/uses" },
+        ],
+    },
     {
         type: "link",
         label: "Support",

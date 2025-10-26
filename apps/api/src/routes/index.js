@@ -31,6 +31,7 @@ import { packagesRouter } from './packages.js';
 import { settingsRouter } from './settings.js';
 import { requireAuth, requireRole } from "../middlewares/auth.js";
 import { adminCustomersRouter } from "./adminCustomers.js";
+import { providerConfigsRouter } from './providerRoutes.js';
 
 const router = Router();
 router.use("/health", healthRouter);
@@ -52,7 +53,7 @@ router.use('/api/packages', packagesRouter);
 router.use('/api/settings', settingsRouter);
 router.use("/checkout", checkoutRouter);
 router.use("/", recurringTopupsRouter);
-
+router.use("/provider-configs", providerConfigsRouter);
 
 const customerRouter = Router();
 customerRouter.use("/orders", ordersRouter);

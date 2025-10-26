@@ -38,6 +38,7 @@ import TransactionsPage from "./ui/transaction/TransactionsPage";
 import PromoUsesPage from "./ui/promoUse/PromoUsagePage";
 import SetaraganTopupsPage from "./ui/setaraganTopupPage/SetaraganTopupsPage";
 import NewTransactionsPage from "./ui/transactionCheck/newTransactionsPage";
+import ProviderConfigsPage from "./ui/provider/ProviderPage";
 
 
 export const routes: RouteObject[] = [
@@ -72,6 +73,10 @@ export const routes: RouteObject[] = [
         {
   path: "/customers",
   element: <CustomersPage />,
+},
+{
+  path: "/provider",
+  element: <ProviderConfigsPage />,
 },
       {
   path: "/transactions",
