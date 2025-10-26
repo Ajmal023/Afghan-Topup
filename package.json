@@ -1,0 +1,22 @@
+{
+  "name": "tohfa",
+  "private": true,
+  "scripts": {
+    "dev-api": "npm --prefix apps/api run dev",
+    "dev-admin": "npm --prefix apps/admin run dev",
+    "dev": "concurrently -k -n API,ADMIN -c magenta,cyan \"npm:dev-api\" \"npm:dev-admin\"",
+    "build": "npm run --prefix apps/admin build && npm run --prefix apps/api build",
+    "start": "npm --prefix apps/api start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "sequelize-cli": "^6.6.3"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "crypto": "^1.0.1",
+    "express-rate-limit": "^8.0.1",
+    "stripe": "^18.4.0",
+    "xmlbuilder": "^15.1.1"
+  }
+}

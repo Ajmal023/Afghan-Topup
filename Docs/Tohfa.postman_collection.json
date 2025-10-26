@@ -1,0 +1,2865 @@
+{
+	"info": {
+		"_postman_id": "dbefdb72-9cd5-4fbe-843a-19f095bbee50",
+		"name": "Tohfa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39015814"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "customer/admin login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@tohfa.com\",\n    \"password\": \"ChangeMe123!\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ACCESS_COOKIE; refresh_token=YOUR_REFRESH_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh access token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "refresh_token=YOUR_REFRESH_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Own profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "List Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/users?page=1&limit=20&role=customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "role",
+									"value": "customer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"sales1@tohfa.local\",\n    \"role\": \"sales\",\n    \"password\": \"SalesPassword123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"admin\",\n    \"is_email_verified\": true\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/USER_ID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"USER_ID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/users/USER_ID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"USER_ID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "List Sessions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/sessions?userId=USER_ID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"sessions"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "USER_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Sessions",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/sessions/SESSION_ID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"sessions",
+								"SESSION_ID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Currencies",
+			"item": [
+				{
+					"name": "list currencies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/currencies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upsert currency",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Afghani\",\"symbol\":\"؋\",\"decimals\":0,\n    \"rate_to_base\":\"1.000000\",\"is_base\":true,\"source\":\"manual\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/currencies/AFN",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"currencies",
+								"AFN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upsert USD",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"US Dollar\",\"symbol\":\"$\",\"decimals\":2,\n    \"rate_to_base\":\"70.250000\",\"is_base\":false,\"source\":\"manual\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/currencies/USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"currencies",
+								"USD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Convert AFN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=YOUR_ADMIN_ACCESS_COOKIE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/currencies/convert?amount_minor=100000&from=AFN&to=USD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"currencies",
+								"convert"
+							],
+							"query": [
+								{
+									"key": "amount_minor",
+									"value": "100000"
+								},
+								{
+									"key": "from",
+									"value": "AFN"
+								},
+								{
+									"key": "to",
+									"value": "USD"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "product Type",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"code\":\"mobile_topup\",\"name\":\"Mobile Top-up\",\"description\":\"Prepaid airtime\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/product-types",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"product-types"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/product-types",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"product-types"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Create Parent",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Airtime\",\"slug\":\"airtime\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Child",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Promos\",\"slug\":\"promos\",\"parent_id\":\"<PARENT_ID>\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Operator",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"code\":\"AWCC\",\"name\":\"AWCC\",\"country\":\"AF\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/operators",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"operators"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "create product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Top-up\",\"sku\":\"TOPUP-001\",\"product_type_id\":\"<TYPE_ID>\",\"description\":\"Airtime\",\"is_active\":true}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/products?q=topup&active=true&type=<TYPE_ID>",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "topup"
+										},
+										{
+											"key": "active",
+											"value": "true"
+										},
+										{
+											"key": "type",
+											"value": "<TYPE_ID>"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"category_id\":\"<CATEGORY_ID>\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/products/<PRODUCT_ID>/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"products",
+										"<PRODUCT_ID>",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list categories for products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token=..."
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/products/<PRODUCT_ID>/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"products",
+										"<PRODUCT_ID>",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Variant",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "Create new contact",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Mom\",\"msisdn\":\"+93770000000\",\"operator_id\":\"<OPERATOR_ID>\",\"notes\":\"Weekly topups\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit contact",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Nope\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/contacts/<OTHER_CONTACT_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts",
+								"<OTHER_CONTACT_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin lists all or filter by userid",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/contacts?userId=<USER_ID>&page=1&limit=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "<USER_ID>"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin updates customers contact",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"notes\":\"VIP\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/contacts/<CONTACT_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts",
+								"<CONTACT_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Owner delets",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/contacts/<CONTACT_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contacts",
+								"<CONTACT_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create order guest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "demo-123"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\":[{\"product_variant_id\":\"<VAR_ID>\",\"quantity\":2,\"msisdn\":\"+9377...\"}],\n    \"email\":\"guest@test.com\",\"phone\":\"+9377...\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order (logedin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "demo-124"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"items\":[{\"product_variant_id\":\"<VAR_ID>\",\"quantity\":1,\"msisdn\":\"+93...\"}]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "curl -i \"http://localhost:3000/api/orders?status=created&page=1&limit=20\" \\\n  -b \"access_token=ADMIN_ACCESS\"\n\n",
+							"protocol": "curl -i \"http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "created"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20\" \\\n  -b \"access_token=ADMIN_ACCESS\"\n\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel order",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/orders/<ORDER_ID>/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"orders",
+								"<ORDER_ID>",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create payment intent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"order_id\":\"<ORDER_ID>\",\"provider\":\"stripe\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/payment-intents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"payment-intents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "webhook simulate success",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"evt_1\",\n    \"type\":\"payment.succeeded\",\n    \"data\":{\"provider_ref\":\"stripe_123456\"}\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/webhooks/stripe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"webhooks",
+								"stripe"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Topup Logs",
+			"item": [
+				{
+					"name": "list with filters and pagination",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/topup-logs?provider=awcc&status=accepted&page=1&limit=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topup-logs"
+							],
+							"query": [
+								{
+									"key": "provider",
+									"value": "awcc"
+								},
+								{
+									"key": "status",
+									"value": "accepted"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by msisdn",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/topup-logs?msisdn=9377",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topup-logs"
+							],
+							"query": [
+								{
+									"key": "msisdn",
+									"value": "9377"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/topup-logs/<LOG_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"topup-logs",
+								"<LOG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "referrals",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"code\":\"REFER2025\",\"max_uses\":100,\"max_uses_per_user\":5,\"active\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/referrals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"referrals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/referrals?q=REFER&page=1&limit=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"referrals"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "REFER"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"active\":false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/referrals/<ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"referrals",
+								"<ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "promos",
+			"item": [
+				{
+					"name": "create percent promo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"code\":\"SUMMER10\",\"type\":\"percent\",\"value\":10,\"active\":true,\"min_order_amount_minor\":500}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/promos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"promos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create percent promo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"code\":\"AFN50\",\"type\":\"fixed\",\"value\":50,\"currency\":\"AFN\",\"active\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/promos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"promos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "guest creates a ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"subject\":\"Top-up not delivered\",\"body\":\"I paid but did not receive top-up.\",\"email\":\"guest@example.com\",\"phone\":\"+9377...\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tickets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer creates a ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"subject\":\"Top-up not delivered\",\"body\":\"I paid but did not receive top-up.\",\"email\":\"guest@example.com\",\"phone\":\"+9377...\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tickets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer lists own ticket",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Lists with filters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/tickets?status=open&priority=high&page=1&limit=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "open"
+								},
+								{
+									"key": "priority",
+									"value": "high"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin updates status assignee/priority",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"status\":\"pending\",\"priority\":\"high\",\"assignee_user_id\":\"<ADMIN_USER_ID>\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/tickets/<TICKET_ID>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tickets",
+								"<TICKET_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin posts an internal comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"body\":\"Checked logs; payment succeeded, topup pending retry.\",\"internal\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/tickets/<TICKET_ID>/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tickets",
+								"<TICKET_ID>",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer fetches comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=CUSTOMER_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/tickets/<TICKET_ID>/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tickets",
+								"<TICKET_ID>",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin dashboard",
+			"item": [
+				{
+					"name": "Overview (defaults to \"today\" UTC; pass ?from=&to= for range)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/overview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"overview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payments summary (all providers)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/payments/summary?from=2025-08-01T00:00:00Z&to=2025-08-11T23:59:59Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"payments",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-08-01T00:00:00Z"
+								},
+								{
+									"key": "to",
+									"value": "2025-08-11T23:59:59Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payments summary for Stripe only",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/payments/summary?provider=stripe&from=2025-08-01T00:00:00Z&to=2025-08-11T23:59:59Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"payments",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "provider",
+									"value": "stripe"
+								},
+								{
+									"key": "from",
+									"value": "2025-08-01T00:00:00Z"
+								},
+								{
+									"key": "to",
+									"value": "2025-08-11T23:59:59Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topups summary (operator success + avg latency)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_ACCESS"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/topups/summary?from=2025-08-01T00:00:00Z&to=2025-08-11T23:59:59Z",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"topups",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2025-08-01T00:00:00Z"
+								},
+								{
+									"key": "to",
+									"value": "2025-08-11T23:59:59Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "topup",
+			"item": [
+				{
+					"name": "Topup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"guest@example.com\",\r\n  \"phone\": \"0700000000\",\r\n  \"items\": [\r\n    { \"product_variant_id\": \"d6c404fa-743e-4416-aa10-7d85c2c27f6e\", \"quantity\": 1, \"msisdn\": \"93708227072\" }\r\n  ],\r\n  \"payment\": {\r\n    \"provider\": \"stripe\",\r\n    \"test_payment_method\": \"pm_card_visa\",   // test-only shortcut to authorize now\r\n    \"mode\": \"authorize_then_capture\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/checkout/topup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkout",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Custom topup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"guest@example.com\",\n    \"phone\": \"0700000000\",\n    \"items\": [\n      {\n        \"product_variant_id\": \"a9d7ac5f-eb07-4e70-a45a-569a3010341b\",\n        \"quantity\": 1,\n        \"msisdn\": \"93708227072\",\n        \"customer_entered_usd_minor\": 500,          // $5.00\n        \"unit_price_minor_override\": 100         // AFN 25.00\n      }\n    ],\n    \"payment\": {\n      \"provider\": \"stripe\",\n      \"test_payment_method\": \"pm_card_visa\",\n      \"mode\": \"authorize_then_capture\"\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/checkout/topup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"checkout",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recurring topup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "access_token=PASTE_YOUR_ACCESS_TOKEN_HERE",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"items\": [\n      {\n        \"product_variant_id\": \"d6c404fa-743e-4416-aa10-7d85c2c27f6e\",\n        \"quantity\": 1,\n        \"msisdn\": \"93708227072\"\n      }\n    ],\n    \"payment\": {\n      \"provider\": \"stripe\",\n      \"test_payment_method\": \"pm_card_visa\",\n      \"mode\": \"authorize_then_capture\"\n    },\n    \"recurring\": {\n      \"frequency\": \"monthly\"\n    },\n    \"email\": \"customer@example.com\",\n    \"phone\": \"0700000000\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/checkout/topup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"checkout",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get recurring topups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_TOKEN",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/recurring-topups",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"recurring-topups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get recurring topups Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ADMIN_TOKEN",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/public/catalog/topups",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"public",
+								"catalog",
+								"topups"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"customer2@example.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify otp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "JAR",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"customer2@example.com\",\r\n    \"purpose\": \"login\", // login, reset_password, verify_contact\r\n    \"code\": \"322157\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/otp/verify",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"otp",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"identifier\":\"customer2@example.com\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JAR",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JAR"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JAR"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "JAR"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"alice+new@example.com\",\"phone\":\"+93770000001\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "JAR"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"current_password\":\"Str0ng!pass\",\"new_password\":\"Sup3rStr0ng!Pass\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/me/password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"me",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"reset_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzODIzZTEwMS0zZjg5LTRhZWEtYmQ2NC05NzllYTRiMjFjYjkiLCJ0eXAiOiJwd3Jlc2V0IiwiaWF0IjoxNzU2MDMzMTU4LCJleHAiOjE3NTYwMzQwNTh9.o_O47fa0stZbyin9Pr4lvqX5RRqplpk93nVu_ZilLWQ\",\"new_password\":\"Test@1234\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/password/reset",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"customer2@example.com\",\"purpose\":\"reset_password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/otp/request",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"otp",
+								"request"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "public products",
+			"item": [
+				{
+					"name": "resolve operator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/public/catalog/resolve?msisdn=0701234567",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"public",
+								"catalog",
+								"resolve"
+							],
+							"query": [
+								{
+									"key": "msisdn",
+									"value": "0701234567"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/public/catalog/types?operator_code=AWCC",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"public",
+								"catalog",
+								"types"
+							],
+							"query": [
+								{
+									"key": "operator_code",
+									"value": "AWCC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product variants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/public/catalog/variants?product_type_code=mobile_topup&sort=amount_asc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"public",
+								"catalog",
+								"variants"
+							],
+							"query": [
+								{
+									"key": "product_type_code",
+									"value": "mobile_topup"
+								},
+								{
+									"key": "operator_code",
+									"value": "AWCC",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "amount_asc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Incentives",
+			"item": [
+				{
+					"name": "Promo Crete",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\":\"SUMMER2025\",\n    \"type\":\"percent\",\n    \"value\":10,\n    \"start_at\":\"2025-09-01T00:00:00Z\",\n    \"end_at\":\"2025-12-31T23:59:59Z\",\n    \"max_uses\":1000,\n    \"max_uses_per_user\":1,\n    \"min_order_amount_minor\":10000,\n    \"description\":\"10% off for summer\",\n    \"active\":true\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/promos",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/promos?q=SUMMER&active=true&page=1&limit=20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "SUMMER"
+								},
+								{
+									"key": "active",
+									"value": "true"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"active\": false, \"description\":\"sunset the code\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/promos/{{PROMO_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"{{PROMO_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/promos/{{PROMO_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"{{PROMO_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo Uses - By Code (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/promos/uses?code=SUMMER2025&page=1&limit=20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"uses"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "SUMMER2025"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo Uses by User & Order (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ADMIN_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/promos/uses?user_id={{USER_ID}}&order_id={{ORDER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"uses"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "{{USER_ID}}"
+								},
+								{
+									"key": "order_id",
+									"value": "{{ORDER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo Uses Me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{USER_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/promos/me/uses?page=1&limit=20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"me",
+								"uses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo - Apply (Quote)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{USER_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\":\"SUMMER2025\",\n    \"order_total_minor\": 250000,\n    \"currency\":\"AFN\",\n    \"msisdn\":\"+93700123456\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/promos/apply",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"apply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Promo - Consume (Record Use)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{USER_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\":\"SUMMER2025\",\n    \"order_id\":\"{{ORDER_ID}}\",\n    \"order_total_minor\": 250000,\n    \"currency\":\"AFN\",\n    \"msisdn\":\"+93700123456\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/promos/consume",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"promos",
+								"consume"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.headers.add({\r",
+					"  key: \"Cookie\",\r",
+					"  value: `access_token=${pm.environment.get(\"access_token\")}`\r",
+					"});\r",
+					""
+				]
+			}
+		}
+	]
+}
