@@ -40,7 +40,7 @@ import IncentiveRecipientModel, {
 
 export const sequelize = new Sequelize(process.env.DATABASE_URL, {
     logging: false,
-    dialect: "postgres",
+    dialect: "mysql",
 });
 
 export const User = UserModel(sequelize);

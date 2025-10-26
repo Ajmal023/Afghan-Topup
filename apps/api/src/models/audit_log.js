@@ -5,7 +5,7 @@ export default (sequelize) => sequelize.define("AuditLog", {
     action: { type: DataTypes.STRING, allowNull: false },
     entity_type: { type: DataTypes.STRING, allowNull: false },
     entity_id: { type: DataTypes.STRING },
-    diff: { type: DataTypes.JSONB },
+    diff: { type: DataTypes.JSON },
     ip: DataTypes.STRING,
     user_agent: DataTypes.STRING,
 }, { tableName: "audit_logs", timestamps: true, updatedAt: false });

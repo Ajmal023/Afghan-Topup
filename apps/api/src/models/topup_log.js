@@ -5,8 +5,8 @@ export default (sequelize) => sequelize.define("TopupLog", {
     operator_id: { type: DataTypes.UUID, allowNull: false },
     provider: { type: DataTypes.STRING, allowNull: false }, // operator integration
     msisdn: { type: DataTypes.STRING, allowNull: true },
-    request_payload: { type: DataTypes.JSONB },
-    response_payload: { type: DataTypes.JSONB },
+    request_payload: { type: DataTypes.JSON },
+    response_payload: { type: DataTypes.JSON },
     status: { type: DataTypes.STRING, allowNull: false }, // sent|accepted|delivered|failed
     provider_txn_id: { type: DataTypes.STRING },
     error_code: { type: DataTypes.STRING },

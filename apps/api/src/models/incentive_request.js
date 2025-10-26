@@ -9,7 +9,7 @@ export default (sequelize) =>
             requester_user_id: { type: DataTypes.UUID, allowNull: false }, // the top customer
             type: { type: DataTypes.ENUM("promo", "referral"), allowNull: false },
             name: { type: DataTypes.STRING, allowNull: false }, // label for admins
-            payload: { type: DataTypes.JSONB, allowNull: true }, // optional configs
+            payload: { type: DataTypes.JSON, allowNull: true }, // optional configs
             status: {
                 type: DataTypes.ENUM("pending", "approved", "rejected"),
                 defaultValue: "pending",
