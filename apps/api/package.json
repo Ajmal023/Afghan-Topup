@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "bullmq": "^5.7.6",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
