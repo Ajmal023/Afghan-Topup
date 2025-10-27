@@ -13,14 +13,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
     Search, 
-    MoreVertical, 
     Eye, 
     Users, 
     DollarSign, 
     Calendar,
     Tag,
     ArrowUpDown,
-    Filter,
     Download
 } from "lucide-react";
 import { toast } from "sonner";
@@ -74,6 +72,216 @@ interface PromoUsesResponse {
     };
 }
 
+function PromoUseTableRow({ use }: { use: PromoUse }) {
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const discountAmount = Number(use.discount_amount || 0);
+    const originalAmount = Number(use.original_amount || 0);
+    const finalAmount = Number(use.final_amount || 0);
+
+    return (
+        <TableRow key={use.id}>
+            <TableCell>
+                <div className="flex flex-col">
+                    <span className="font-mono font-medium">{use.PromoCode?.code || 'N/A'}</span>
+                    {use.PromoCode?.description && (
+                        <span className="text-xs text-muted-foreground truncate max-w-xs">
+                            {use.PromoCode.description}
+                        </span>
+                    )}
+                </div>
+            </TableCell>
+            <TableCell>
+                {use.Customer ? (
+                    <div className="flex flex-col">
+                        <span className="font-medium">
+                            {use.Customer.first_name} {use.Customer.last_name}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                            {use.Customer.email}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                            {use.Customer.whatsapp_number}
+                        </span>
+                    </div>
+                ) : (
+                    <span className="text-muted-foreground">Unknown Customer</span>
+                )}
+            </TableCell>
+            <TableCell>
+                <div className="flex items-center gap-2 text-green-600">
+                    <DollarSign className="h-4 w-4" />
+                    <span className="font-medium">
+                        {discountAmount.toFixed(2)}
+                    </span>
+                </div>
+            </TableCell>
+            <TableCell>
+                <div className="flex flex-col text-sm">
+                    <div className="flex justify-between gap-2">
+                        <span className="text-muted-foreground">Original:</span>
+                        <span>${originalAmount.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                        <span className="text-muted-foreground">Final:</span>
+                        <span className="font-medium">
+                            ${finalAmount.toFixed(2)}
+                        </span>
+                    </div>
+                </div>
+            </TableCell>
+            <TableCell>
+                {use.status === 'used' && <Badge variant="default">Used</Badge>}
+                {use.status === 'pending' && <Badge variant="secondary">Pending</Badge>}
+                {use.status === 'failed' && <Badge variant="destructive">Failed</Badge>}
+                {use.applied && (
+                    <div className="text-xs text-muted-foreground mt-1">Applied</div>
+                )}
+            </TableCell>
+            <TableCell>
+                <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="h-3 w-3" />
+                    {formatDate(use.createdAt)}
+                </div>
+            </TableCell>
+            <TableCell className="text-right">
+                <ViewPromoUseDialog use={use} />
+            </TableCell>
+        </TableRow>
+    );
+}
+
+function ViewPromoUseDialog({ use }: { use: PromoUse }) {
+    const [open, setOpen] = useState(false);
+
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const discountAmount = Number(use.discount_amount || 0);
+    const originalAmount = Number(use.original_amount || 0);
+    const finalAmount = Number(use.final_amount || 0);
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                    <Eye className="h-4 w-4" />
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-lg">
+                <DialogHeader>
+                    <DialogTitle>Promo Code Usage Details</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Promo Code</label>
+                            <p className="font-mono font-medium">{use.PromoCode?.code || 'N/A'}</p>
+                        </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Code Type</label>
+                            <p className="capitalize">
+                                {use.PromoCode?.is_public ? 'Public' : 'Personalized'}
+                            </p>
+                        </div>
+                    </div>
+
+                    {use.PromoCode?.description && (
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Description</label>
+                            <p className="mt-1">{use.PromoCode.description}</p>
+                        </div>
+                    )}
+
+                    <div>
+                        <label className="text-sm font-medium text-muted-foreground">Customer</label>
+                        {use.Customer ? (
+                            <div className="mt-1 space-y-1">
+                                <p>
+                                    {use.Customer.first_name} {use.Customer.last_name}
+                                </p>
+                                <p className="text-sm text-muted-foreground">{use.Customer.email}</p>
+                                <p className="text-sm text-muted-foreground">{use.Customer.whatsapp_number}</p>
+                            </div>
+                        ) : (
+                            <p className="text-muted-foreground">Unknown Customer</p>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Original Amount</label>
+                            <p className="text-lg font-medium">${originalAmount.toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Discount</label>
+                            <p className="text-lg font-medium text-green-600">
+                                -${discountAmount.toFixed(2)}
+                            </p>
+                        </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Final Amount</label>
+                            <p className="text-lg font-bold">${finalAmount.toFixed(2)}</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Status</label>
+                            <div className="mt-1">
+                                {use.status === 'used' && <Badge variant="default">Used</Badge>}
+                                {use.status === 'pending' && <Badge variant="secondary">Pending</Badge>}
+                                {use.status === 'failed' && <Badge variant="destructive">Failed</Badge>}
+                            </div>
+                        </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Applied</label>
+                            <p className="mt-1">{use.applied ? 'Yes' : 'No'}</p>
+                        </div>
+                    </div>
+
+                    {use.Transaction && (
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Transaction</label>
+                            <div className="mt-1 space-y-1">
+                                <p className="text-sm">ID: {use.Transaction.id}</p>
+                                <p className="text-sm">Phone: {use.Transaction.phone_number}</p>
+                                <p className="text-sm">Status: {use.Transaction.status}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Used At</label>
+                            <p className="text-sm">{formatDate(use.createdAt)}</p>
+                        </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">Last Updated</label>
+                            <p className="text-sm">{formatDate(use.updatedAt)}</p>
+                        </div>
+                    </div>
+                </div>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
 export default function PromoUsesPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -92,17 +300,28 @@ export default function PromoUsesPage() {
 
     const promoUses = promoUsesResponse?.data?.rows || [];
 
-
     const totalUses = promoUses.length;
     const successfulUses = promoUses.filter(u => u.status === 'used').length;
     const failedUses = promoUses.filter(u => u.status === 'failed').length;
     
-
     const totalDiscount = promoUses.reduce((sum, use) => {
         const discount = use.discount_amount || 0;
         return sum + (typeof discount === 'number' ? discount : 0);
     }, 0);
 
+    // Helper function to get nested values for sorting
+    function getNestedValue(obj: any, path: string): any {
+        return path.split('.').reduce((acc, key) => acc?.[key], obj);
+    }
+
+    const handleSort = (field: string) => {
+        if (sortField === field) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortField(field);
+            setSortOrder("desc");
+        }
+    };
 
     useEffect(() => {
         if (promoUses) {
@@ -116,7 +335,6 @@ export default function PromoUsesPage() {
 
                 const matchesStatus = statusFilter === "all" || use.status === statusFilter;
 
-          
                 let matchesDate = true;
                 if (dateFilter !== "all") {
                     const useDate = new Date(use.createdAt);
@@ -140,57 +358,29 @@ export default function PromoUsesPage() {
                 return matchesSearch && matchesStatus && matchesDate;
             });
 
+            const sorted = [...filtered].sort((a, b) => {
+                let aValue: any;
+                let bValue: any;
 
-            filtered = filtered.sort((a, b) => {
-                let aValue: any = a;
-                let bValue: any = b;
-                
-        
-                if (sortField.includes('.')) {
-                    const fields = sortField.split('.');
-                    aValue = fields.reduce((obj, field) => obj?.[field], a);
-                    bValue = fields.reduce((obj, field) => obj?.[field], b);
-                } else {
-                    aValue = a[sortField as keyof PromoUse];
-                    bValue = b[sortField as keyof PromoUse];
-                }
+                aValue = getNestedValue(a, sortField);
+                bValue = getNestedValue(b, sortField);
 
-         
                 if (aValue == null) aValue = '';
                 if (bValue == null) bValue = '';
 
-                if (sortOrder === "asc") {
-                    return aValue > bValue ? 1 : -1;
+                if (typeof aValue === 'string') aValue = aValue.toLowerCase();
+                if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+
+                if (sortOrder === 'asc') {
+                    return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
                 } else {
-                    return aValue < bValue ? 1 : -1;
+                    return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
                 }
             });
 
-            setFilteredUses(filtered);
+            setFilteredUses(sorted);
         }
     }, [promoUses, searchTerm, statusFilter, dateFilter, sortField, sortOrder]);
-
-    const handleSort = (field: string) => {
-        if (sortField === field) {
-            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-        } else {
-            setSortField(field);
-            setSortOrder("desc");
-        }
-    };
-
-    const getStatusBadge = (status: string) => {
-        switch (status) {
-            case 'used':
-                return <Badge variant="default">Used</Badge>;
-            case 'pending':
-                return <Badge variant="secondary">Pending</Badge>;
-            case 'failed':
-                return <Badge variant="destructive">Failed</Badge>;
-            default:
-                return <Badge variant="outline">Unknown</Badge>;
-        }
-    };
 
     const exportToCSV = () => {
         const headers = [
@@ -255,7 +445,6 @@ export default function PromoUsesPage() {
 
     return (
         <div className="space-y-6">
-
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Tag className="h-6 w-6 text-primary" />
@@ -267,7 +456,6 @@ export default function PromoUsesPage() {
                 </Button>
             </div>
 
-    
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Card>
                     <CardContent className="p-6">
@@ -317,8 +505,7 @@ export default function PromoUsesPage() {
                 </Card>
             </div>
 
- 
-     
+            <Card>
                 <CardHeader>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <CardTitle>Promo Code Usage History</CardTitle>
@@ -421,222 +608,7 @@ export default function PromoUsesPage() {
                         </Table>
                     </div>
                 </CardContent>
-        
+            </Card>
         </div>
-    );
-}
-
-function PromoUseTableRow({ use }: { use: PromoUse }) {
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    };
-
-
-    const discountAmount = Number(use.discount_amount || 0);
-    const originalAmount = Number(use.original_amount || 0);
-    const finalAmount = Number(use.final_amount || 0);
-
-    return (
-        <TableRow key={use.id}>
-            <TableCell>
-                <div className="flex flex-col">
-                    <span className="font-mono font-medium">{use.PromoCode?.code || 'N/A'}</span>
-                    {use.PromoCode?.description && (
-                        <span className="text-xs text-muted-foreground truncate max-w-xs">
-                            {use.PromoCode.description}
-                        </span>
-                    )}
-                </div>
-            </TableCell>
-            <TableCell>
-                {use.Customer ? (
-                    <div className="flex flex-col">
-                        <span className="font-medium">
-                            {use.Customer.first_name} {use.Customer.last_name}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                            {use.Customer.email}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                            {use.Customer.whatsapp_number}
-                        </span>
-                    </div>
-                ) : (
-                    <span className="text-muted-foreground">Unknown Customer</span>
-                )}
-            </TableCell>
-            <TableCell>
-                <div className="flex items-center gap-2 text-green-600">
-                    <DollarSign className="h-4 w-4" />
-                    <span className="font-medium">
-                        {discountAmount.toFixed(2)}
-                    </span>
-                </div>
-            </TableCell>
-            <TableCell>
-                <div className="flex flex-col text-sm">
-                    <div className="flex justify-between gap-2">
-                        <span className="text-muted-foreground">Original:</span>
-                        <span>${originalAmount.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                        <span className="text-muted-foreground">Final:</span>
-                        <span className="font-medium">
-                            ${finalAmount.toFixed(2)}
-                        </span>
-                    </div>
-                </div>
-            </TableCell>
-            <TableCell>
-                {use.status === 'used' && <Badge variant="default">Used</Badge>}
-                {use.status === 'pending' && <Badge variant="secondary">Pending</Badge>}
-                {use.status === 'failed' && <Badge variant="destructive">Failed</Badge>}
-                {use.applied && (
-                    <div className="text-xs text-muted-foreground mt-1">Applied</div>
-                )}
-            </TableCell>
-            <TableCell>
-                <div className="flex items-center gap-2 text-sm">
-                    <Calendar className="h-3 w-3" />
-                    {formatDate(use.createdAt)}
-                </div>
-            </TableCell>
-            <TableCell className="text-right">
-                <ViewPromoUseDialog use={use} />
-            </TableCell>
-        </TableRow>
-    );
-}
-
-function ViewPromoUseDialog({ use }: { use: PromoUse }) {
-    const [open, setOpen] = useState(false);
-
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    };
-
-
-    const discountAmount = Number(use.discount_amount || 0);
-    const originalAmount = Number(use.original_amount || 0);
-    const finalAmount = Number(use.final_amount || 0);
-
-    return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4" />
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
-                <DialogHeader>
-                    <DialogTitle>Promo Code Usage Details</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Promo Code</label>
-                            <p className="font-mono font-medium">{use.PromoCode?.code || 'N/A'}</p>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Code Type</label>
-                            <p className="capitalize">
-                                {use.PromoCode?.is_public ? 'Public' : 'Personalized'}
-                            </p>
-                        </div>
-                    </div>
-
-                    {use.PromoCode?.description && (
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Description</label>
-                            <p className="mt-1">{use.PromoCode.description}</p>
-                        </div>
-                    )}
-
-
-                    <div>
-                        <label className="text-sm font-medium text-muted-foreground">Customer</label>
-                        {use.Customer ? (
-                            <div className="mt-1 space-y-1">
-                                <p>
-                                    {use.Customer.first_name} {use.Customer.last_name}
-                                </p>
-                                <p className="text-sm text-muted-foreground">{use.Customer.email}</p>
-                                <p className="text-sm text-muted-foreground">{use.Customer.whatsapp_number}</p>
-                            </div>
-                        ) : (
-                            <p className="text-muted-foreground">Unknown Customer</p>
-                        )}
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-4">
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Original Amount</label>
-                            <p className="text-lg font-medium">${originalAmount.toFixed(2)}</p>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Discount</label>
-                            <p className="text-lg font-medium text-green-600">
-                                -${discountAmount.toFixed(2)}
-                            </p>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Final Amount</label>
-                            <p className="text-lg font-bold">${finalAmount.toFixed(2)}</p>
-                        </div>
-                    </div>
-
-           
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Status</label>
-                            <div className="mt-1">
-                                {use.status === 'used' && <Badge variant="default">Used</Badge>}
-                                {use.status === 'pending' && <Badge variant="secondary">Pending</Badge>}
-                                {use.status === 'failed' && <Badge variant="destructive">Failed</Badge>}
-                            </div>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Applied</label>
-                            <p className="mt-1">{use.applied ? 'Yes' : 'No'}</p>
-                        </div>
-                    </div>
-
-             
-                    {use.Transaction && (
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Transaction</label>
-                            <div className="mt-1 space-y-1">
-                                <p className="text-sm">ID: {use.Transaction.id}</p>
-                                <p className="text-sm">Phone: {use.Transaction.phone_number}</p>
-                                <p className="text-sm">Status: {use.Transaction.status}</p>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Used At</label>
-                            <p className="text-sm">{formatDate(use.createdAt)}</p>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">Last Updated</label>
-                            <p className="text-sm">{formatDate(use.updatedAt)}</p>
-                        </div>
-                    </div>
-                </div>
-            </DialogContent>
-        </Dialog>
     );
 }

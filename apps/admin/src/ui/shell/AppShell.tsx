@@ -6,9 +6,7 @@ import { toast } from "sonner";
 import {
     LayoutDashboard,
     LogOut,
-    Boxes,
     Users as UsersIcon,
-    ShoppingCart,
     LifeBuoy,
     Settings as SettingsIcon,
     PercentSquare,

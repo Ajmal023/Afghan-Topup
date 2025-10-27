@@ -1,4 +1,4 @@
-// src/pages/admin/PromoCodesPage.tsx
+import React from "react";
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -34,6 +34,10 @@ interface PromoCode {
     max_discount: number | null;
     min_order_amount: number;
     usage_limit: number;
+    Owner?: {
+        first_name?: string;
+        last_name?: string;
+    };
     used_count: number;
     valid_from: string;
     valid_until: string;
@@ -77,7 +81,7 @@ export default function PromoCodesPage() {
 
     const promoCodes = promoCodesResponse?.data?.rows || [];
 
-    // Filter promo codes based on search term
+
     useEffect(() => {
         if (promoCodes) {
             const filtered = promoCodes.filter(promo => 
@@ -269,7 +273,7 @@ export default function PromoCodesPage() {
     );
 }
 
-function PromoTableRow({ promo, getStatusBadge }: { promo: PromoCode; getStatusBadge: (promo: PromoCode) => JSX.Element }) {
+function PromoTableRow({ promo, getStatusBadge }: { promo: PromoCode; getStatusBadge: (promo: PromoCode) => React.ReactElement }) {
     const queryClient = useQueryClient();
 
     const deleteMutation = useMutation({
@@ -373,15 +377,17 @@ function PromoTableRow({ promo, getStatusBadge }: { promo: PromoCode; getStatusB
             </TableCell>
             <TableCell>
                 <Badge variant={promo?.customer_uid ? "secondary" : "default"}>
-                    {/* {promo?.customer_uid ? 'Public' : 'Personalized'} */}
+               
                     {promo?.customer_uid ? 'Personalized' : 'Public'}
 
                 </Badge>
-                {promo.customer_uid  && (
-                    <div className="text-xs text-muted-foreground mt-1 truncate" title={`${promo.Owner.first_name} ${promo.Owner.last_name}`}>
-                        {/* {promo.PromoCodeRequest.first_name} {promo.PromoCodeRequest.last_name} */}
-                        {promo?.Owner.first_name} {promo?.Owner.last_name}
-                    </div>
+                {promo.customer_uid && (
+                <div
+                    className="text-xs text-muted-foreground mt-1 truncate"
+                    title={`${promo.Owner?.first_name ?? 'Unknown'} ${promo.Owner?.last_name ?? ''}`}
+                >
+                    {promo.Owner?.first_name ?? 'Unknown'} {promo.Owner?.last_name ?? ''}
+                </div>
                 )}
             </TableCell>
             <TableCell>{getStatusBadge(promo)}</TableCell>
@@ -996,7 +1002,7 @@ function AddPromoCodeDialog() {
                                 <input
                                     type="radio"
                                     checked={formData.is_public}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, is_public: true }))}
+                                   
                                 />
                                 Public (Anyone can use)
                             </label>
@@ -1004,7 +1010,6 @@ function AddPromoCodeDialog() {
                                 <input
                                     type="radio"
                                     checked={!formData.is_public}
-                                    onChange={(e) => setFormData(prev => ({ ...prev, is_public: false }))}
                                 />
                                 Personalized (Specific customer)
                             </label>

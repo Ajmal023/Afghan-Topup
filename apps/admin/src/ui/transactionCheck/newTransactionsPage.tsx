@@ -5,23 +5,17 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger,
+    Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { 
-    Search, Filter, Calendar, DollarSign, RefreshCw, Eye, 
-    Play, CheckCircle, XCircle, Clock, MoreVertical, 
-    Download, BarChart3, Users, Phone, CreditCard, CheckSquare
+    Search, Filter,  DollarSign,  Eye, 
+     CheckCircle, XCircle, Clock,  
+    Download,  Users, Phone, CreditCard, CheckSquare
 } from "lucide-react";
 
 
@@ -95,7 +89,6 @@ export default function NewTransactionsPage() {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        const today = new Date().toISOString().split('T')[0];
         setStartDate("");
         setEndDate("");
     }, []);
@@ -394,7 +387,7 @@ export default function NewTransactionsPage() {
                                         <TableCell>
                                             <Checkbox
                                                 checked={selectedTransactions.includes(transaction.id)}
-                                                onCheckedChange={(checked) => handleSelectTransaction(transaction.id, checked as boolean)}
+                                               onCheckedChange={(checked: boolean) => handleSelectTransaction(transaction.id, checked)}
                                             />
                                         </TableCell>
                                         <TableCell className="font-mono text-xs">
@@ -429,7 +422,7 @@ export default function NewTransactionsPage() {
                                             )}
                                         </TableCell>
                                         <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-                                        <TableCell>{getStripeStatusBadge(transaction.stripe_status)}</TableCell>
+                                        <TableCell>{getStripeStatusBadge(transaction.stripe_status ?? "unknown")}</TableCell>
                                         <TableCell className="font-mono text-xs">
                                             {transaction.payment_id ? transaction.payment_id.slice(-8) : 'N/A'}
                                         </TableCell>

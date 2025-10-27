@@ -1,4 +1,3 @@
-// src/pages/admin/PromoRequestsPage.tsx
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -21,7 +21,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Icons
+
 import { Search, Users, Calendar, Mail, Phone, FileText, MoreVertical, Check, X } from "lucide-react";
 
 interface PromoRequest {
@@ -193,7 +193,7 @@ export default function PromoRequestsPage() {
     );
 }
 
-function RequestTableRow({ request, getStatusBadge }: { request: PromoRequest; getStatusBadge: (status: string) => JSX.Element }) {
+function RequestTableRow({ request, getStatusBadge }: { request: PromoRequest; getStatusBadge: (status: string) => React.ReactElement; }) {
     const [viewDialogOpen, setViewDialogOpen] = useState(false);
     const [actionDialogOpen, setActionDialogOpen] = useState(false);
     const [promoDialogOpen, setPromoDialogOpen] = useState(false);

@@ -12,15 +12,10 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { 
-    Search, Filter, Calendar, DollarSign, RefreshCw, Eye, 
-    Download, BarChart3, Users, Phone, CreditCard, Database,
+    Search, Filter,  DollarSign,  Eye, 
+    Download,  Users, Phone,  Database,
     TrendingUp, Wallet, PieChart
 } from "lucide-react";
 
@@ -86,7 +81,6 @@ export default function SetaraganTopupsPage() {
 
 
     useEffect(() => {
-        const today = new Date().toISOString().split('T')[0];
         setStartDate("");
         setEndDate("");
     }, []);
@@ -158,19 +152,6 @@ export default function SetaraganTopupsPage() {
             toast.success("Export completed successfully");
         } catch (error) {
             toast.error("Failed to export data");
-        }
-    };
-
-    const getStatusBadge = (status: string) => {
-        switch (status) {
-            case 'Success':
-                return <Badge variant="default" className="bg-green-500">Success</Badge>;
-            case 'Failed':
-                return <Badge variant="destructive">Failed</Badge>;
-            case 'Pending':
-                return <Badge variant="secondary">Pending</Badge>;
-            default:
-                return <Badge variant="outline">{status}</Badge>;
         }
     };
 

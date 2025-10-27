@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import type { CustomerDTO, CustomersResponse, CustomerStats } from "@/types/customer";
+import type { CustomerDTO, CustomersResponse, CustomerStats } from "./types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 
-import { Search, Plus, Edit, Trash2, MoreVertical, User, Eye, UserCheck, UserX } from "lucide-react";
+import { Search,  Edit, Trash2, MoreVertical, User, Eye, UserCheck, UserX } from "lucide-react";
 
 export default function CustomersPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -62,13 +62,13 @@ export default function CustomersPage() {
 
   useEffect(() => {
     if (customersData?.data) {
-      const filtered = customersData.data.filter(customer => 
-        customer.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.phone_number?.includes(searchTerm) ||
-        customer.uid?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      const filtered = customersData.data.filter((customer: any) =>
+  customer.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  customer.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  customer.phone_number?.includes(searchTerm) ||
+  customer.uid?.toLowerCase().includes(searchTerm.toLowerCase())
+);
       setFilteredCustomers(filtered);
     }
   }, [customersData, searchTerm]);

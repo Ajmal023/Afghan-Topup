@@ -1,4 +1,4 @@
-// src/pages/Dashboard.tsx
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -8,7 +8,7 @@ import {
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-// Types
+
 interface AnalyticsData {
     cards: {
         totalCustomers: number;
@@ -38,9 +38,9 @@ interface AnalyticsData {
     };
 }
 
-// Color constants for charts
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
-const OPERATOR_COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'];
+
 
 export default function Dashboard() {
     const [period, setPeriod] = useState<'today' | 'week' | 'month'>('today');
@@ -56,7 +56,7 @@ export default function Dashboard() {
 
     const analytics = analyticsData?.data;
 
-    // Card definitions
+
     const cards = [
         {
             label: "Total Customers",
@@ -167,7 +167,7 @@ export default function Dashboard() {
 
     return (
         <div className="space-y-6">
-            {/* Header with Period Filter */}
+        
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
@@ -194,7 +194,7 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Analytics Cards Grid */}
+         
             <section className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {cards.map((card, index) => (
                     <StatCard
@@ -289,9 +289,9 @@ export default function Dashboard() {
                                         fill="#8884d8"
                                         dataKey="count"
                                     >
-                                        {analytics.charts.promoCodeTypes.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                        ))}
+                                    {analytics.charts.promoCodeTypes.map((_, index) => (
+  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+))}
                                     </Pie>
                                     <Tooltip />
                                     <Legend />
@@ -465,7 +465,3 @@ function MetricCard({
     );
 }
 
-// Component: Section Title (existing)
-function SectionTitle({ children }: { children: React.ReactNode }) {
-    return <div className="mb-2 text-sm text-muted-foreground">{children}</div>;
-}

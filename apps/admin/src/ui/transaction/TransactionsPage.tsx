@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger,
+    Dialog, DialogContent, DialogHeader, DialogTitle,  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -19,11 +19,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { 
-    Search, Filter, Calendar, DollarSign, RefreshCw, Eye, 
-    Play, CheckCircle, XCircle, Clock, MoreVertical, 
+    Search, Filter,  DollarSign, RefreshCw, Eye, 
+    CheckCircle, XCircle, Clock, MoreVertical, 
     Download, BarChart3, Users, Phone, CreditCard,
-    AlertCircle, Server, User, Hash, Calendar as CalendarIcon,
-    Smartphone, Globe, Tag, Package, Network
+     Server, User, Calendar as CalendarIcon,
+    Smartphone, Globe, Tag, Network
 } from "lucide-react";
 
 interface Transaction {
@@ -194,49 +194,8 @@ export default function TransactionsPage() {
         setPage(1);
     };
 
-    const getStatusBadge = (status: string) => {
-        switch (status) {
-            case 'Confirmed':
-                return <Badge variant="default" className="bg-green-500">Confirmed</Badge>;
-            case 'Paid':
-                return <Badge variant="default" className="bg-blue-500">Paid</Badge>;
-            case 'Pending':
-                return <Badge variant="secondary">Pending</Badge>;
-            case 'Failed':
-                return <Badge variant="destructive">Failed</Badge>;
-            case 'Rejected':
-                return <Badge variant="outline" className="border-red-200 text-red-700">Rejected</Badge>;
-            default:
-                return <Badge variant="outline">{status}</Badge>;
-        }
-    };
 
-    const getStripeStatusBadge = (stripeStatus: string) => {
-        switch (stripeStatus) {
-            case 'succeeded':
-                return <Badge variant="default" className="bg-green-500">Succeeded</Badge>;
-            case 'failed':
-                return <Badge variant="destructive">Failed</Badge>;
-            case 'processing':
-                return <Badge variant="secondary">Processing</Badge>;
-            case 'requires_payment_method':
-                return <Badge variant="outline" className="border-yellow-200 text-yellow-700">Requires Payment</Badge>;
-            default:
-                return <Badge variant="outline">{stripeStatus || 'N/A'}</Badge>;
-        }
-    };
-
-    const getOutputBadge = (output: number) => {
-        switch (output) {
-            case 1:
-                return <Badge variant="outline" className="bg-blue-50 text-blue-700">Internal</Badge>;
-            case 2:
-                return <Badge variant="outline" className="bg-green-50 text-green-700">Sataragan</Badge>;
-            default:
-                return <Badge variant="outline">Unknown</Badge>;
-        }
-    };
-
+ 
 
     const shouldShowRetry = (transaction: Transaction) => {
         if (transaction.status === 'Paid' || transaction.status === 'Confirmed') {
@@ -627,14 +586,9 @@ function TransactionTableRow({
                 </div>
             </TableCell>
             <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-            <TableCell>{getStripeStatusBadge(transaction.stripe_status)}</TableCell>
+            <TableCell>{getStripeStatusBadge(transaction.stripe_status ?? "unknown")}</TableCell>
             <TableCell>{getOutputBadge(transaction.output)}</TableCell>
-            {/* <TableCell>
-                <div className="flex items-center gap-2">
-                    <Network className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">{transaction.network}</span>
-                </div>
-            </TableCell> */}
+          
             <TableCell className="font-mono text-xs">
                 {transaction.payment_id ? transaction.payment_id.slice(-8) : 'N/A'}
             </TableCell>
@@ -1003,7 +957,6 @@ function TransactionDetailsDialog({ transaction }: { transaction: Transaction })
 
 function BulkActions({ 
     selectedIds, 
-    onComplete,
     onBulkUpdate 
 }: { 
     selectedIds: string[]; 

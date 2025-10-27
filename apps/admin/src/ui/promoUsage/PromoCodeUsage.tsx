@@ -30,6 +30,7 @@ interface PromoCodeDetails {
     description: string;
     discount_type: string;
     discount_value: number;
+    valid_until: string;
     usage_limit: number;
     used_count: number;
     PromoUses: PromoUsage[];
